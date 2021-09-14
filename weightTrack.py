@@ -2,7 +2,7 @@
 
 """ 
 To Do:
-1. Be able to log time, weight, and notes of a weighing
+1. Be able to log time, weight, and note of a weighing
 2. Use the weights to create a graph and show changes in weight over time
 
 Notes:
@@ -13,7 +13,7 @@ Notes:
 
 
 Questions:
-1. Should user be able to change their notes? Therefore setting a new time
+1. Should user be able to change their note? Therefore setting a new time
     Argument for no: I wouldn't be able to remember an old weight or what i
     did after a day. Therefore allow for up to 30 min of change time else,
 
@@ -21,6 +21,8 @@ Questions:
 
 import datetime
 import matplotlib as plt
+
+FILE_NAME = "weights.txt"
 
 
 class WeightNote:
@@ -33,7 +35,7 @@ class WeightNote:
         self.__weight = weight
         self.__note = note
 
-    # Getter methods
+    ### Getter methods ###
 
     def getTime(self):
         return self.__time
@@ -44,7 +46,7 @@ class WeightNote:
     def getNote(self):
         return self.__note
 
-    # Setter methods
+    ### Setter methods ###
 
     def setTime(self):
         pass
@@ -56,37 +58,42 @@ class WeightNote:
         self.__note = note
 
     def __str__(self):
-        return "{};{};{}".format(self.weight, self.notes, self.time)
+        return "{};{};{}".format(self.__weight, self.__note, self.__time)
 
 
-def loadUser():
-    pass
-
-
-# Main
-if __name__ == '__main__':
-    # Load database if possible
-    newUser = False
-
-    print("---------------------")
-
+# Change function to be more independent by accepting a file name
+def loadFile(textfile):
     try:
-        f = open("weights.txt", "r")
-    except IOError as error:  # if file doesn't exist, create one
-        f = open("weights.txt", 'w')
-        newUser = True
+        f = open(textfile, "r")
+    except IOError:  # if file doesn't exist, create one
+        f = open(textfile, 'w')
+    return f
 
+
+def getUserName(f):  # Takes in file
     # Load name
-    if newUser == True:
+    try:
+        name = f.readline().strip()
+    except IOError:
+        name = ""
+
+    if not name:
         print("Hi! It seems that you're a new user. Welcome!")
         name = input("What is your name? ")
         f.write("{}\n".format(name))
     else:
-        name = f.readline().strip()
         print("Hi {}! Welcome back!".format(name))
 
+    return name
+
+
+def loadUserData(f):
+    try:
+        f.readline()
+    except IOError:
+        return 0
     # Load data if any
-    # data order: 0: weight, 1: notes, 2: date and time
+    # data order: 0: weight, 1: note, 2: date and time
     lines = f.readlines()
     count = 1
     history = []
@@ -95,10 +102,22 @@ if __name__ == '__main__':
         # Change delimter because this can easily be broken
         data = line.split(";")
         parsedData = " | ".join(data)
-        print("Entry {}: Weight: {}, Notes: {}, Date: {}".format(
+        print("Entry {}: Weight: {}, Note: {}, Date: {}".format(
             count, data[0], data[1], data[2]))
         history.append(parsedData)
         count += 1
+
+    return history
+
+
+# Main
+if __name__ == '__main__':
+    print("---------------------")
+
+    # Load database if possible
+    f = loadFile(FILE_NAME)
+    name = getUserName(f)
+    data = loadUserData(f)
 
     # Start user interface
     while True:
@@ -112,23 +131,23 @@ if __name__ == '__main__':
         if choice == "1":  # add
             # To do: make this into a function part of the class
             weight = input("What was your recorded weight? ")
-            notes = input("Any Notes? ")
+            note = input("Any Note? ")
             print("Adding entry...")
-            curWeight = WeightNote(weight, notes)
+            curWeight = WeightNote(weight, note)
 
             # confirmation
             print("You just recorded {} pounds and your note is: '{}' on {} at {}".format(
-                curWeight.weight, curWeight.notes, curWeight.time.strftime("%m/%d/%Y"), curWeight.time.strftime("%H:%M")))
+                curWeight.getWeight(), curWeight.getNote(), curWeight.getTime().strftime("%m/%d/%Y"), curWeight.getTime().strftime("%H:%M")))
 
             # Saving it to a textfile
             with open("weights.txt", "a") as f:  # in append mode
                 f.write("{}\n".format(curWeight))
-            history.append(curWeight)
+            data.append(curWeight)
             print("Entry saved")
         elif choice == "2":  # look at all entry
             # To do: make this into a function part of the class
             count = 1
-            for entry in history:
+            for entry in data:
                 print("{}: {}".format(count, entry))
                 count += 1
         elif choice == "3":  # make a graph using matplot
@@ -143,11 +162,11 @@ if __name__ == '__main__':
     print("---------------------")
 
     # weight = input("What was your recorded weight? ")
-    # notes = input("Any Notes? ")
-    # curWeight = WeightNote(weight, notes)
+    # note = input("Any Note? ")
+    # curWeight = WeightNote(weight, note)
 
     # # confirmation
-    # print("You just recorded {} pounds and your note is: '{}' on {} at {}".format(curWeight.weight, curWeight.notes, curWeight.time.strftime("%m/%d/%Y"), curWeight.time.strftime("%H:%M")))
+    # print("You just recorded {} pounds and your note is: '{}' on {} at {}".format(curWeight.weight, curWeight.note, curWeight.time.strftime("%m/%d/%Y"), curWeight.time.strftime("%H:%M")))
 
     # # Saving it to a textfile
     # with open("weights.txt", "a") as f: # in append mode
