@@ -10,6 +10,8 @@ Notes:
   possibly move to a more reliable database method such as pickle/sqlite
 - Add a user interface to navigate if they want to add a new entry, look at old
   entries, or view graphs
+- Making validUser a "state" in User class? more object oriented
+- Main is basically to just start application and connect classes together.
 
 
 Questions:
@@ -19,95 +21,14 @@ Questions:
 
 """
 
-import datetime
+from WeightNote import WeightNote
+from File import File
+from User import User
 import matplotlib as plt
 
 FILE_NAME = "weights.txt"
 
-
-class WeightNote:
-    __time = None
-    __weight = None
-    __note = None
-
-    def __init__(self, weight, note):
-        self.__time = datetime.datetime.now()  # use datetime to get current time
-        self.__weight = weight
-        self.__note = note
-
-    ### Getter methods ###
-
-    def getTime(self):
-        return self.__time
-
-    def getWeight(self):
-        return self.__weight
-
-    def getNote(self):
-        return self.__note
-
-    ### Setter methods ###
-
-    def setTime(self):
-        pass
-
-    def setWeight(self, weight):
-        self.__weight = weight
-
-    def setNote(self, note):
-        self.__note = note
-
-    def __str__(self):
-        return "{};{};{}".format(self.__weight, self.__note, self.__time)
-
-
 # Change function to be more independent by accepting a file name
-def loadFile(textfile):
-    try:
-        f = open(textfile, "r")
-    except IOError:  # if file doesn't exist, create one
-        f = open(textfile, 'w')
-    return f
-
-
-def getUserName(f):  # Takes in file
-    # Load name
-    try:
-        name = f.readline().strip()
-    except IOError:
-        name = ""
-
-    if not name:
-        print("Hi! It seems that you're a new user. Welcome!")
-        name = input("What is your name? ")
-        f.write("{}\n".format(name))
-    else:
-        print("Hi {}! Welcome back!".format(name))
-
-    return name
-
-
-def loadUserData(f):
-    try:
-        f.readline()
-    except IOError:
-        return 0
-    # Load data if any
-    # data order: 0: weight, 1: note, 2: date and time
-    lines = f.readlines()
-    count = 1
-    history = []
-
-    for line in lines:
-        # Change delimter because this can easily be broken
-        data = line.split(";")
-        parsedData = " | ".join(data)
-        print("Entry {}: Weight: {}, Note: {}, Date: {}".format(
-            count, data[0], data[1], data[2]))
-        history.append(parsedData)
-        count += 1
-
-    return history
 
 
 # Main
@@ -115,9 +36,12 @@ if __name__ == '__main__':
     print("---------------------")
 
     # Load database if possible
-    f = loadFile(FILE_NAME)
-    name = getUserName(f)
-    data = loadUserData(f)
+    user = User()
+    f = File(FILE_NAME)
+
+    f.loadFile()
+    user.setUserName(f.extractUserName())
+    user.setData(f.loadUserData())
 
     # Start user interface
     while True:
@@ -142,12 +66,12 @@ if __name__ == '__main__':
             # Saving it to a textfile
             with open("weights.txt", "a") as f:  # in append mode
                 f.write("{}\n".format(curWeight))
-            data.append(curWeight)
+            data.append(curWeight)  # need to be changed
             print("Entry saved")
         elif choice == "2":  # look at all entry
             # To do: make this into a function part of the class
             count = 1
-            for entry in data:
+            for entry in user.getData():
                 print("{}: {}".format(count, entry))
                 count += 1
         elif choice == "3":  # make a graph using matplot
