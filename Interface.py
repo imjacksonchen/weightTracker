@@ -40,25 +40,27 @@ class Interface:
         print("You just recorded {} pounds and your note is: '{}' on {} at {}".format(
             weight.getWeight(), weight.getNote(), weight.getTime().strftime("%m/%d/%Y"), weight.getTime().strftime("%H:%M")))
 
-        self.file.addData(weight)
+        self.file.addData(weight.toString())
 
-        self.user.addData(weight)  # need to be changed
-        print("Entry saved")
+        self.user.addData(self.file.separateLines(
+            weight.toString()))
+        print("Entry saved\n")
 
     def showData(self):
-        # count = 1
-        # for entry in self.user.getData():
-        #     print("{}: {}".format(count, entry))
-        #     count += 1
-        print(self.user.getData())
+        count = 1
+        for entry in self.user.getData():
+            print("{}: {}".format(count, entry))
+            count += 1
 
     def showGraph(self):
         print("Sorry, this feature has not been implemented yet.\n")
 
     def setRunningFalse(self):
         self.running = False
+        print("Quitting...\n")
 
     def checkUserChoice(self):
+        print("---------------------\n")
         if self.choice == "1":
             self.addWeight()
         elif self.choice == "2":
@@ -69,3 +71,4 @@ class Interface:
             self.setRunningFalse()
         else:
             print("Invalid number choice, please choose a valid number choice")
+        print("---------------------")

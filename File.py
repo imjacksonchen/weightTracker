@@ -1,5 +1,8 @@
 # File class to deal with loading and parsing through a file
 
+DELIMITER = "|~|"
+
+
 class File:
     fileName = None
     filePointer = None
@@ -32,29 +35,29 @@ class File:
 
     def loadUserData(self):
         try:
-            self.filePointer.readline()
+            lines = self.filePointer.readlines()
         except IOError:
-            return None
+            return []
         # Load data if any
         # data order: 0: weight, 1: note, 2: date and time
-        lines = self.filePointer.readlines()
-        print(lines)
         count = 1
         data = []
 
         for line in lines:
-            print(line)
-            # Change delimter because this can easily be broken
-            data = line.split("|~|")
-            parsedData = " | ".join(data)
-            print("Entry {}: Weight: {}, Note: {}, Date: {}".format(
-                count, data[0], data[1], data[2]))
-            data.append(parsedData)
+            # print("Entry {}: Weight: {}, Note: {}, Date: {}".format(
+            #     count, entry[0], entry[1], entry[2]))
+
+            data.append(self.separateLines(line))
             count += 1
 
         return data
 
+    def separateLines(self, line):
+        entry = line.split(DELIMITER)
+        parsedData = " | ".join(entry)
+        return parsedData
+
     def addData(self, data):
         # Saving it to a textfile
         with open(self.fileName, "a") as f:  # in append mode
-            f.write("{}\n".format(data))
+            f.write(data)

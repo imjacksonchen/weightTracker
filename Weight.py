@@ -39,4 +39,7 @@ class Weight:
     ######################
 
     def __str__(self):
-        return "{}|~|{}|~|{}".format(self.__weight, self.__note, self.__time)
+        return "{}|~|{}|~|{}\n".format(self.__weight, self.__note, self.__time)
+
+    def toString(self):
+        return "{}|~|{}|~|{}\n".format(self.__weight, self.__note, self.__time)
