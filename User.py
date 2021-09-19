@@ -1,18 +1,31 @@
-# User class to hold name and data
+# User class to hold name and __data
 
 class User:
-    userName = ""
-    validUser = False
-    data = None
 
-    def setUserName(self, name):
-        self.userName = name
+    ### Instance Variables ###
+    __userName = ""
+    __validUser = None
+    __data = None
+    ##########################
 
+    ### Getters ###
     def getUserName(self):
-        return self.userName
-
-    def setData(self, data):
-        self.data = data
+        return self.__userName
 
     def getData(self):
-        return self.data
+        return self.__data
+
+    def getValidUser(self):
+        return self.__validUser
+    ################
+
+    ### Setters ###
+    def setUserName(self, name):
+        self.__userName = name
+
+    def setData(self, data):
+        self.__data = data
+
+    def setValidUser(self, valid):
+        self.__validUser = valid
+    ################

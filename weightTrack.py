@@ -24,7 +24,6 @@ Questions:
 from File import File
 from User import User
 from Interface import Interface
-import matplotlib as plt
 
 FILE_NAME = "weights.txt"
 

@@ -1,5 +1,6 @@
 from Weight import Weight
 from User import User
+from File import File
 
 
 class Interface:

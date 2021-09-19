@@ -3,17 +3,20 @@ import datetime
 
 class Weight:
 
+    ### Instance Variables ###
     __time = None
     __weight = None
     __note = None
+    ##########################
 
+    ### Constructor ###
     def __init__(self, weight, note):
         self.__time = datetime.datetime.now()  # use datetime to get current time
         self.__weight = weight
         self.__note = note
+    ###################
 
     ### Getter methods ###
-
     def getTime(self):
         return self.__time
 
@@ -22,9 +25,9 @@ class Weight:
 
     def getNote(self):
         return self.__note
+    ######################
 
     ### Setter methods ###
-
     def setTime(self):
         pass
 
@@ -36,3 +39,4 @@ class Weight:
 
     def __str__(self):
         return "{};{};{}".format(self.__weight, self.__note, self.__time)
+    ######################
