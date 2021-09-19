@@ -20,6 +20,7 @@ class File:
             name = self.filePointer.readline().strip()
         except IOError:
             name = ""
+
         if not name:
             print("Hi! It seems that you're a new user. Welcome!")
             name = input("What is your name? ")

@@ -1,7 +1,7 @@
 import datetime
 
 
-class WeightNote:
+class Weight:
 
     __time = None
     __weight = None
