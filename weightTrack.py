@@ -21,8 +21,6 @@ Questions:
 
 """
 
-from File import File
-from User import User
 from Interface import Interface
 
 FILE_NAME = "weights.txt"
@@ -35,13 +33,14 @@ if __name__ == '__main__':
     print("---------------------")
 
     # Load database if possible
-    user = User()
+    # user = User()
     interface = Interface()
-    f = File(FILE_NAME)
+    interface.loadInformation(FILE_NAME)
+    # f = File(FILE_NAME)
 
-    f.loadFile()
-    user.setUserName(f.extractUserName())
-    user.setData(f.loadUserData())
+    # f.loadFile()
+    # user.setUserName(f.extractUserName())
+    # user.setData(f.loadUserData())
 
     interface.startInterface()
 

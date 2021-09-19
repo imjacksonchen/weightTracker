@@ -36,7 +36,7 @@ class Weight:
 
     def setNote(self, note):
         self.__note = note
+    ######################
 
     def __str__(self):
-        return "{};{};{}".format(self.__weight, self.__note, self.__time)
-    ######################
+        return "{}|~|{}|~|{}".format(self.__weight, self.__note, self.__time)

@@ -38,12 +38,14 @@ class File:
         # Load data if any
         # data order: 0: weight, 1: note, 2: date and time
         lines = self.filePointer.readlines()
+        print(lines)
         count = 1
         data = []
 
         for line in lines:
+            print(line)
             # Change delimter because this can easily be broken
-            data = line.split("|~")
+            data = line.split("|~|")
             parsedData = " | ".join(data)
             print("Entry {}: Weight: {}, Note: {}, Date: {}".format(
                 count, data[0], data[1], data[2]))
@@ -51,3 +53,8 @@ class File:
             count += 1
 
         return data
+
+    def addData(self, data):
+        # Saving it to a textfile
+        with open(self.fileName, "a") as f:  # in append mode
+            f.write("{}\n".format(data))

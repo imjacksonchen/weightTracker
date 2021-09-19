@@ -5,7 +5,7 @@ class User:
     ### Instance Variables ###
     __userName = ""
     __validUser = None
-    __data = None
+    __data = []
     ##########################
 
     ### Getters ###
@@ -29,3 +29,6 @@ class User:
     def setValidUser(self, valid):
         self.__validUser = valid
     ################
+
+    def addData(self, data):
+        self.__data.append(data)
