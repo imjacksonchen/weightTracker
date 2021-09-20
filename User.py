@@ -6,6 +6,10 @@ class User:
     __userName = ""
     __validUser = None
     __data = []
+
+    __weights = []
+    __notes = []
+    __dates = []
     ##########################
 
     ### Getters ###
@@ -17,6 +21,15 @@ class User:
 
     def getValidUser(self):
         return self.__validUser
+
+    def getWeights(self):
+        return self.__weights
+
+    def getNotes(self):
+        return self.__notes
+
+    def getDates(self):
+        return self.__dates
     ################
 
     ### Setters ###
@@ -28,6 +41,15 @@ class User:
 
     def setValidUser(self, valid):
         self.__validUser = valid
+
+    def setWeights(self, weights):
+        self.__weights = weights
+
+    def setNotes(self, notes):
+        self.__notes = notes
+
+    def setDates(self, dates):
+        self.__dates = dates
     ################
 
     def addData(self, data):

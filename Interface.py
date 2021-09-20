@@ -1,4 +1,5 @@
 from Weight import Weight
+from Graph import Graph
 from User import User
 from File import File
 
@@ -20,11 +21,14 @@ class Interface:
         self.user.setUserName(self.file.extractUserName())
         self.user.setData(self.file.loadUserData())
 
+        self.file.extractCols(self.user)
+
     def userChoices(self):
         print("1. Add entry")
         print("2. Look at all entry")
         print("3. Check out graph")
-        print("4. Quit")
+        print("4. Analysis of data")
+        print("5. Quit")
 
     def askForUserChoice(self):
         self.choice = input("What would you like to do? (number input) ")
@@ -53,7 +57,12 @@ class Interface:
             count += 1
 
     def showGraph(self):
-        print("Sorry, this feature has not been implemented yet.\n")
+        graph = Graph()
+        graph.simpleGraph(self.user.getDates(), self.user.getWeights())
+        # print("Sorry, this feature has not been implemented yet.\n")
+
+    def showAnalysis(self):
+        pass
 
     def setRunningFalse(self):
         self.running = False
@@ -68,6 +77,8 @@ class Interface:
         elif self.choice == "3":
             self.showGraph()
         elif self.choice == "4":
+            self.showAnalysis()
+        elif self.choice == "5":
             self.setRunningFalse()
         else:
             print("Invalid number choice, please choose a valid number choice")

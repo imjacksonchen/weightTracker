@@ -47,13 +47,16 @@ class File:
             # print("Entry {}: Weight: {}, Note: {}, Date: {}".format(
             #     count, entry[0], entry[1], entry[2]))
 
-            data.append(self.separateLines(line))
+            data.append(self.combineData(self.separateLines(line)))
             count += 1
 
         return data
 
     def separateLines(self, line):
         entry = line.split(DELIMITER)
+        return entry
+
+    def combineData(self, entry):
         parsedData = " | ".join(entry)
         return parsedData
 
@@ -61,3 +64,23 @@ class File:
         # Saving it to a textfile
         with open(self.fileName, "a") as f:  # in append mode
             f.write(data)
+
+    def extractCols(self, user):
+        weights = []
+        notes = []
+        dates = []
+
+        with open(self.fileName) as f:
+            lines = f.readlines()[1:]
+
+        for line in lines:
+            entry = self.separateLines(line)
+            weights.append(entry[0])
+            notes.append(entry[1])
+            dates.append(entry[2].strip('\n'))
+
+        user.setWeights(weights)
+        user.setNotes(notes)
+        user.setDates(dates)
+
+        f.close()
