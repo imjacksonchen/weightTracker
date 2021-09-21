@@ -5,7 +5,7 @@ To Do:
 1. Be able to log time, weight, and note of a weighing
 2. Use the weights to create a graph and show changes in weight over time
 3. Conversion between pounds and kilograms
-
+4. Add disclaimer for sparse amount of data points when showing graph
 
 Notes:
 - Using text files for storage/databse for weight information

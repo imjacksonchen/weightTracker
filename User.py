@@ -54,3 +54,12 @@ class User:
 
     def addData(self, data):
         self.__data.append(data)
+
+    def addWeight(self, weight):
+        self.__weights.append(weight)
+
+    def addNote(self, note):
+        self.__notes.append(note)
+
+    def addDate(self, date):
+        self.__dates.append(date)

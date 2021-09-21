@@ -47,7 +47,7 @@ class File:
             # print("Entry {}: Weight: {}, Note: {}, Date: {}".format(
             #     count, entry[0], entry[1], entry[2]))
 
-            data.append(self.combineData(self.separateLines(line)))
+            data.append(self.combineData(line))
             count += 1
 
         return data
@@ -56,8 +56,8 @@ class File:
         entry = line.split(DELIMITER)
         return entry
 
-    def combineData(self, entry):
-        parsedData = " | ".join(entry)
+    def combineData(self, line):
+        parsedData = " | ".join(self.separateLines(line))
         return parsedData
 
     def addData(self, data):

@@ -35,10 +35,10 @@ class Interface:
 
     def addWeight(self):
         # To do: make this into a function part of the class
-        weight = input("What was your recorded weight? ")
+        inputWeight = input("What was your recorded weight? ")
         note = input("Any Note? ")
         print("Adding entry...")
-        weight = Weight(weight, note)
+        weight = Weight(inputWeight, note)
 
         # confirmation
         print("You just recorded {} pounds and your note is: '{}' on {} at {}".format(
@@ -46,8 +46,13 @@ class Interface:
 
         self.file.addData(weight.toString())
 
-        self.user.addData(self.file.separateLines(
+        self.user.addData(self.file.combineData(
             weight.toString()))
+
+        self.user.addWeight(weight.getWeight())
+        self.user.addNote(weight.getNote())
+        self.user.addDate(str(weight.getTime()))
+
         print("Entry saved\n")
 
     def showData(self):
