@@ -78,3 +78,12 @@ class User:
         for weight in weightData:
             weightSum += int(weight)
         return weightSum
+
+    def calcMaxWeight():
+        pass
+
+    def calacMinWeight():
+        pass
+
+    def averageWeightDelta():
+        pass
