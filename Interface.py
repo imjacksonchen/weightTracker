@@ -22,7 +22,10 @@ class Interface:
         self.user.setData(self.file.loadUserData())
 
         self.file.extractCols(self.user)
+        self.user.convertWeightList(self.user.getWeights())
         self.user.calcAvg()
+        self.user.calacMinWeight()
+        self.user.calcMaxWeight()
 
     def userChoices(self):
         print("1. Add entry")
@@ -65,12 +68,11 @@ class Interface:
     def showGraph(self):
         graph = Graph()
         graph.simpleGraph(self.user.getDates(), self.user.getWeights())
-        # print("Sorry, this feature has not been implemented yet.\n")
 
     def showAnalysis(self):
         print("Average weight (rounded down): " + self.user.getAvgWeight())
-        # print("Highest weight: " +  + "weighed on" + )
-        # print("Lowest weight: " +  + "weighed on" + )
+        print("Highest weight: " + self.user.getMinWeight() + " weighed on")
+        print("Lowest weight: " + self.user.getMaxWeight() + " weighed on")
 
     def setRunningFalse(self):
         self.running = False

@@ -11,7 +11,11 @@ class User:
     __notes = []
     __dates = []
 
+    __intWeights = []
+
     __avgWeight = 0
+    __minWeight = 0
+    __maxWeight = 0
     ##########################
 
     ### Getters ###
@@ -35,6 +39,12 @@ class User:
 
     def getAvgWeight(self):
         return str(self.__avgWeight)
+
+    def getMinWeight(self):
+        return str(self.__minWeight)
+
+    def getMaxWeight(self):
+        return str(self.__maxWeight)
     ################
 
     ### Setters ###
@@ -70,20 +80,18 @@ class User:
         self.__dates.append(date)
 
     def calcAvg(self):
-        weightData = self.getWeights()
-        self.__avgWeight = int(self.sumOfWeights(weightData)/len(weightData))
+        self.__avgWeight = int(sum(self.__intWeights)/len(self.__intWeights))
 
-    def sumOfWeights(self, weightData):
-        weightSum = 0
-        for weight in weightData:
-            weightSum += int(weight)
-        return weightSum
+    def calcMaxWeight(self):
+        self.__maxWeight = max(self.__intWeights)
 
-    def calcMaxWeight():
+    def calacMinWeight(self):
+        self.__minWeight = min(self.__intWeights)
+
+    def averageWeightDelta(self, weightData):
         pass
 
-    def calacMinWeight():
-        pass
-
-    def averageWeightDelta():
-        pass
+    def convertWeightList(self, weightData):
+        for i in range(len(weightData)):
+            weightData[i] = int(weightData[i])
+        self.__intWeights = weightData
