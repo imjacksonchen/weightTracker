@@ -10,6 +10,8 @@ class User:
     __weights = []
     __notes = []
     __dates = []
+
+    __avgWeight = 0
     ##########################
 
     ### Getters ###
@@ -30,6 +32,9 @@ class User:
 
     def getDates(self):
         return self.__dates
+
+    def getAvgWeight(self):
+        return str(self.__avgWeight)
     ################
 
     ### Setters ###
@@ -63,3 +68,13 @@ class User:
 
     def addDate(self, date):
         self.__dates.append(date)
+
+    def calcAvg(self):
+        weightData = self.getWeights()
+        self.__avgWeight = int(self.sumOfWeights(weightData)/len(weightData))
+
+    def sumOfWeights(self, weightData):
+        weightSum = 0
+        for weight in weightData:
+            weightSum += int(weight)
+        return weightSum

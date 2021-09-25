@@ -1,2 +1,2 @@
 # weightTracker
-track your weight!
+Track your weight on the command line!

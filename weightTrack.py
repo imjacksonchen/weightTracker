@@ -6,6 +6,7 @@ To Do:
 2. Use the weights to create a graph and show changes in weight over time
 3. Conversion between pounds and kilograms
 4. Add disclaimer for sparse amount of data points when showing graph
+5. Update analysis of data every time new information is inputted
 
 Notes:
 - Using text files for storage/databse for weight information

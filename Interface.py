@@ -22,6 +22,7 @@ class Interface:
         self.user.setData(self.file.loadUserData())
 
         self.file.extractCols(self.user)
+        self.user.calcAvg()
 
     def userChoices(self):
         print("1. Add entry")
@@ -67,7 +68,9 @@ class Interface:
         # print("Sorry, this feature has not been implemented yet.\n")
 
     def showAnalysis(self):
-        pass
+        print("Average weight (rounded down): " + self.user.getAvgWeight())
+        # print("Highest weight: " +  + "weighed on" + )
+        # print("Lowest weight: " +  + "weighed on" + )
 
     def setRunningFalse(self):
         self.running = False

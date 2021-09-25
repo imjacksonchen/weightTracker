@@ -9,8 +9,6 @@ import datetime
 class Graph:
 
     def simpleGraph(self, dates, weights):
-        print(dates)
-        print(weights)
         fig, ax = plt.subplots()  # Create a figure containing a single axes
         # Plot some data on the axes (x, y)
 
